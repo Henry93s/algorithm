@@ -48,12 +48,10 @@ int main() {
 		}
 	}
 
-
 	// 최종 결과 stack3 (dry 된 스택) 출력
 	for (i = n - 1;i > -1;i--) {
 		printf("%d\n", stack3[i]);
 	}
-
 
 	return 0;
 }
