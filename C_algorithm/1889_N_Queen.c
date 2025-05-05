@@ -89,11 +89,10 @@ void placeQueen(int* col, int* cnt, int row, int N) {
 
 int main() {
     // 정올 1889 N Queen 문제 적용 
-    int N;
-    scanf("%d", &N);
+    int N; 
+    scanf_s("%d", &N);
 
     int* col = (int*)malloc(sizeof(int) * N); // 각 행마다 퀸이 놓일 N 열의 공간 확보
-    int queenCnt; // N 개의 queen 이 주어졌을 때
     int cnt = 0; // 퀸이 위치할 수 있는 모든 경우의 개수
 
     placeQueen(col, &cnt, 0, N); // 0번째 행부터 시작
