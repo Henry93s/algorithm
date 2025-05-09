@@ -1,23 +1,41 @@
-// 단순 삽입 정렬 : 선택한 요소를 그보다 더 앞쪽의 알맞은 위치에 삽입하고 밀어내는 작업을 반복하여 정렬
+// 단순 삽입 정렬 : 자료 배열의 첫 비교 시작점까지 차례대로 이미 정렬된 배열 부분과 비교 후 삽입
+// 선택 정렬보다 swap 발생이 많음.
+// 단, 어느 정도 정렬이 되어 있는 요소들에 한해서 o(n) 시간복잡도로 구현이 가능함
 #include <stdio.h>
 #include <stdlib.h>
 void insertion(int* arr, int index) {
 	int i, j;
 	int temp;
-	int minIndex;
 
-	for (i = 1;i < index;i++) {
-		// 1. 시작 요소(두 번째) 와 비교를 시작하는 첫 요소를 min 값으로 지정
-		// 2. 시작 요소부터 정렬되지 않은 위치까지의 요소를 비교하고 가장 작은 값을 min 값으로 변경
-		// 3. 가장 작은 값의 min 을 각 반복문의 정렬이 되지 않은 첫 위치 값과 swap
-		// 4. 나머지 값을 오른쪽 shift
-		minIndex = i - 1; // (1)
-		for (j = i + 1;j < index;j++) {
-			if (*(arr + i) < *(arr + minIndex)) {
-				minIndex = i; // (2)
+	// 1. 자료의 모든 요소를 앞에서부터 반복문 진행
+	// 2. 비교 시작점 + 1 부터 첫 번째 요소까지 차례대로 이미 정렬된 배열 부분과 비교 후 swap 진행 
+	for (i = 0;i < index - 1;i++) { // (1)
+		for (j = i + 1;j > 0;j--) { // (2) 
+			if (*(arr + j) < *(arr + (j - 1))) {
+				temp = *(arr + j);
+				*(arr + j) = *(arr + (j - 1));
+				*(arr + (j - 1)) = temp;
 			}
 		}
-
-
 	}
+
+	return;
 }
+
+int main() {
+	int* arr = (int*)malloc(sizeof(int) * 7);
+	int i;
+	 
+	for (i = 0;i < 7;i++) {
+		scanf_s("%d", arr + i);
+	}
+
+	insertion(arr, 7);
+
+	for (i = 0;i < 7;i++) {
+		printf("%d ", *(arr + i));
+	}
+
+	return 0;
+}
+

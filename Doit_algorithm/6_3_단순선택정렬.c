@@ -1,4 +1,5 @@
 // 단순 선택 정렬 : 요소들 중에서 가장 작은 값을 찾고 이를 알맞은 위치로 옮겨서 정렬
+// 삽입 정렬보다 swap 발생이 적음
 #include <stdio.h>
 #include <stdlib.h>
 void selectionSort(int* arr, int index) {
