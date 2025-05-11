@@ -30,7 +30,7 @@ void quick(int* arr, int left, int right) {
 		// 4. right index 부터 right 값이 피벗보다 크면 계속 진행(--), 작거나 같으면 멈춤;
 		while (*(arr + pr) > *(arr + pivot)) {
 			pr--;
-		}
+		} 
 		
 		// 5. 피벗 포인터가 교차하지 않았을 때(pl <= pr) 그룹의 left 값과 right 값을 swap 하고, pl, pr 포인터를 한 칸씩 이동
 		// 교차했을 때에도 swap 이 발생할 경우 이미 정렬된 구간을 깨뜨릴 수 있음.

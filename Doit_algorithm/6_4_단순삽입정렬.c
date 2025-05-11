@@ -26,7 +26,7 @@ void insertion(int* arr, int index) {
 	}
 
 	return;
-}
+} 
 
 int main() {
 	int* arr = (int*)malloc(sizeof(int) * 7);

@@ -44,7 +44,7 @@ void shell(int* arr, int index) {
 		}
 	}
 
-	return;
+	return; 
 }
 
 int main() {
