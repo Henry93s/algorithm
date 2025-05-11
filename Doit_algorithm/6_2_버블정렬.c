@@ -1,4 +1,5 @@
 // 버블 정렬 : 이웃한 두 요소의 대소 관계를 비교하여 교환을 반복함.
+// 평균 O(n^2) 시간 복잡도
 #include <stdio.h>
 #include <stdlib.h>
 void bubbleSort(int* arr, int index) {

@@ -1,52 +1,65 @@
 // 셀 정렬: 정렬한 요소를 나눠 각 그룹 별로 단순 삽입 정렬을 수행하고, 각 그룹을 합치면서 정렬 반복
-// => 효과 : 요소의 swap 횟수를 줄일 수 있음.
+// => 효과 : 단순 삽입 정렬의 단점인 "삽입할 위치가 멀리 떨어져 있을 때 급증하는 shift 이동 횟수" 를 줄일 수 있음.
+// -> 방법 : "아직 정렬되지 않은 부분의 첫 번째 요소 인덱스" 를 "전체 인덱스 / 2" 에서 시작(인덱스 /= 2) 하여 각 그룹 별로 단순 삽입 정렬 수행한다.
+
+// 시간 복잡도 분석
+/*
+	1. 바깥 루프 for (h = index / 2;h > 0;h /= 2) : /2 씩 간격 h 가 나뉘어지므로 O(log n) 회 반복된다고 볼 수 있다.
+	2. 중간 루프 for (i = h;i < index;i++) : 각 h 정렬 그룹 마다 삽입 정렬을 수행하므로 전체 배열을 순회, 즉 O(n)
+	3. 안쪽 루프 for (j = i;j >= h && *(arr + j - h) > key;j-=h) : 삽입 정렬처럼 비교하면서 밀어내는 구조지만, 역시 h 만큼 건너 뛰는 구조.
+		-> 서로 멀리 떨어진 값을 먼저 부분 정렬로 정리해줌
+		-> 나중에 간격 h=1 이 되었을 때 이미 배열이 상당 부분 정렬되어 있음
+		-> 삽입 정렬보다 shift 횟수가 적어짐
+		따라서 최소 O(1) ~ 최악 O(n), 평균 O(log n)
+		- 최소 O(1) 케이스 : 이미 모두 정렬이 된 집합의 경우, 모든 간격 h 정렬에서 비교 1회만 발생됨
+		- 최악 O(n) 케이스 : h = 1 일 때, 정렬 순서가 완전히 역순인 경우 (사실상 h 기준을 잘 짜놓는다면 거의 발생하지 않음), 
+
+	==> 현재 코드에서는 전체 시간 복잡도(h = index / 2)는 평균적으로 O(n^1.25) 이나
+		h 계산 수열 성능이 좋을 수록 더 빨라질 수 있음.
+		
+*/
 #include <stdio.h>
 #include <stdlib.h>
 void shell(int* arr, int index) {
-	int i, j;
-	int temp;
-	
-	// (1) 4 정렬 수행
-	for (i = 0;i < index / 2;i++) {
-		if (*(arr + i) > *(arr + index / 2 + i)) {
-			temp = *(arr + i);
-			*(arr + i) = *(arr + index / 2 + i);
-			*(arr + index / 2 + i) = temp;
+	int i, j, k;
+	int key;
+
+	int h = index / 2; // 그룹을 나눌 특정 간격 h
+	for (h = index / 2;h > 0;h /= 2) { // 간격 h 를 반 씩 줄여가면서(일반적인 h 계산 수열)
+
+		// h 정렬(h 그룹 요소들 끼리 h 간격으로 부분 "삽입 정렬" 수행
+		for (i = h;i < index;i++) { // (1) 
+			key = *(arr + i); // (2) 
+			for (j = i;j >= h && *(arr + j - h) > key;j-=h) { // h 정렬에 따라 각 그룹 요소 들 끼리 비교하여야 함.
+				*(arr + j) = *(arr + j - h); // 앞쪽 요소(j - h)가 더 클 동안 계속 뒤로 shift
+			}
+			// 앞쪽 요소(j - h)가 더 작거나 같으면 j 인덱스에 key 인덱스 실제 값을 삽입
+			*(arr + j) = key;
+
+			for (k = 0;k < index;k++) {
+				printf("%d ", *(arr + k));
+			}
+			printf("\n");
 		}
 	}
-	for (i = 0;i < index;i++) {
-		printf("%d ", *(arr + i));
-	}
-	printf("\n\n");
-
-
-	// (2) 2 정렬 수행
-	int cnt = 0;
-	int p;
-	for (i = 0;cnt < index / 2;i += 2, cnt++) {
-		if (*(arr + i) > *(arr + i + 2)) {
-			temp = *(arr + i);
-			*(arr + i) = *(arr + i + 2);
-			*(arr + i + 2) = temp;
-		}
-
-		for (p = 0;p < index;p++) {
-			printf("%d ", *(arr + p));
-		}
-		printf("\n");
-
-	}
-
-
 
 	return;
 }
 
 int main() {
-	int* arr = (int*)malloc(sizeof(int) * 8);
-	for (int i = 0;i < 8;i++) {
+	int* arr = (int*)malloc(sizeof(int) * 7);
+	int i;
+
+	for (i = 0;i < 7;i++) {
 		scanf_s("%d", arr + i);
 	}
-	shell(arr, 8);
+
+	shell(arr, 7);
+
+	printf("\n");
+	for (i = 0;i < 7;i++) {
+		printf("%d ", *(arr + i));
+	}
+
 	return 0;
 }
