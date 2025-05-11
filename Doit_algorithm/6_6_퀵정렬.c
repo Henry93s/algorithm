@@ -9,6 +9,13 @@
 	4. right index 부터 right 값이 피벗보다 크면 계속 진행(--), 작거나 같으면 멈춤;
 	5. 피벗 포인터가 교차하지 않았을 때(pl <= pr) 그룹의 left 값과 right 값을 swap 하고, pl, pr 포인터를 한 칸씩 이동
 	6. 교차했을 때(pl > pr), 해당 그룹을 두 그룹으로 나누고, 각 그룹 내 원소가 1개가 될 때까지 quick 함수 재귀 호출 수행)
+
+
+	시간 복잡도 = (재귀 호출의 깊이 * 각 순환 호출 단계의 비교 연산)
+	일반적인 경우 : 재귀 호출 깊이 log n * 각 재귀 호출에서의 비교 연산 n = O(n log n)
+	최악의 경우
+		오름차순 또는 내림차순으로 이미 정렬된 상태
+			=> 재귀 호출 깊이 n * 각 재귀 호출에서의 비교 연산 n = O(n^2)
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,6 +52,7 @@ void quick(int* arr, int left, int right) {
 
 	// 6. 교차했을 때(pl > pr), 해당 그룹의 정렬 작업 종료. 
 	// 이후 왼쪽 그룹과 오른쪽 그룹을 계속 divide 하여 정렬하기 위한 재귀 호출
+	// left == right : 그룹에 요소가 1개이므로 정렬 불필요, left > right : 정렬할 구간 없음
 	if (left < pr) {
 		quick(arr, left, pr);   // 왼쪽 부분 정렬
 	}
