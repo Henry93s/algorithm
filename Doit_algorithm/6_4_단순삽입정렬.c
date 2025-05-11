@@ -9,14 +9,14 @@ void insertion(int* arr, int index) {
 	int key;
 
 	// 1. 자료의 모든 요소를 앞에서부터 반복문 진행
-	// 2. 아직 정렬되지 않은 부분의 첫 번째 요소 인덱스를 keyIndex 값으로 지정
+	// 2. 아직 정렬되지 않은 부분의 첫 번째 요소 인덱스를 key 값으로 지정
 	// 3. 비교 시작점부터 첫 번째 요소까지 비교하면서 요소들을 뒤로 shift, 알맞은 위치에서는 insertion
 	for (i = 0;i < index;i++) { // (1)
 		key = *(arr + i); // (2)
 		for (j = i;j > 0 && *(arr + j - 1) > key;j--) { // 앞쪽 요소(j - 1)가 더 클 동안 계속 뒤로 shift
 			*(arr + j) = *(arr + j - 1); // 뒤로 shift
 		}
-		// 앞쪽 요소(j - 1)가 더 작거나 같으면 j 인덱스에 key 인덱스 실제 값을 삽입
+		// 앞쪽 요소(j - 1)가 더 작거나 같으면 j 인덱스에 key 값을 삽입
 		*(arr + j) = key;
 
 		for (k = 0;k < index;k++) {

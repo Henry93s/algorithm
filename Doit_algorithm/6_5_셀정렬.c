@@ -36,6 +36,7 @@ void shell(int* arr, int index) {
 			// 앞쪽 요소(j - h)가 더 작거나 같으면 j 인덱스에 key 인덱스 실제 값을 삽입
 			*(arr + j) = key;
 
+			/// h 정렬 부분 동작 확인하기
 			for (k = 0;k < index;k++) {
 				printf("%d ", *(arr + k));
 			}
