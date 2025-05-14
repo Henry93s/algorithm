@@ -18,6 +18,7 @@ void quickSort(int* arr, int left, int right) {
 	int r = right;
 
 	// left 와 right 가 엇갈릴 때까지 반복
+	// "엇갈릴 때까지 반복 이유" : 엇갈리기 전까지 새로운 피벗 기준으로 작은 값 묶음과 큰 값 묶음을 "분할"&"정렬" 할 수 없다.
 	while (l <= r) {
 		// l 좌 포인터가 데이터 묶음 끝점보다 작거나 같고, 좌 포인터 배열 값이 피벗보다 작거나 같을 동안 우측으로 이동
 		while (l <= right && *(arr + l) <= pivot) {
