@@ -14,8 +14,9 @@ void heapSort(int* arr, int r, int n) {
 	int lastParent = (n / 2) - 1; // heapify 시작 지점
 	int maxIndex;
 	
-	// 최대 힙 구성
+	// 최대 힙 구성 (Bottom-up)
 	if (r == 0) {
+		// bottom-up 이므로 root 까지 올라가면서 자식들 중 최대 값을 구해 부모와 비교하여 필요 시 swap
 		for (int i = lastParent; i >= r;i--) {
 			if (2 * i + 1 <= n - 1 && 2 * i + 2 <= n - 1) {
 				if (*(arr + 2 * i + 1) >= *(arr + 2 * i + 2)) {
@@ -34,7 +35,8 @@ void heapSort(int* arr, int r, int n) {
 			}
 		}
 	}
-	else {
+	else { // top-down 깨진 heap 체크 파트
+		// 부분 heap 의 시작점(i : like root) 에서 부터 자식이 있는 부모까지 내려가면서 heap 구성
 		int i = lastParent;
 
 		while (2 * i + 1 <= n - 1 || 2 * i + 2 <= n - 1) {
@@ -66,14 +68,12 @@ void heapSort(int* arr, int r, int n) {
 	// root 를 마지막 leaf 와 교체
 	swap(arr, 0, n - 1);
 	printf("swap 후 정리 체크\n");
-	for (int i = 0;i < 5;i++) {
+	for (int i = 0;i < 8;i++) {
 		printf("%d ", *(arr + i));
 	}
 	printf("\n");
 
 	// 마지막 leaf 를 제외한 원소들로 다시 heap 구성(오름차순)
-	// 
-	// 오답 체크 1 : 
 	heapSort(arr, 0, n - 1); 
 }
 int main() {
