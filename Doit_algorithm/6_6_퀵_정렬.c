@@ -6,29 +6,29 @@ void swap(int* arr, int a, int b) {
 	*(arr + b) = temp;
 }
 void quickSort(int* arr, int left, int right) {
-	// ÇÇ¹þÀº µ¥ÀÌÅÍ ¹­À½ÀÇ Ã¹ ¹øÂ° ¿ø¼Ò·Î ÁöÁ¤
+	// í”¼ë²—ì€ ë°ì´í„° ë¬¶ìŒì˜ ì²« ë²ˆì§¸ ì›ì†Œë¡œ ì§€ì •
 	int pivot = *(arr + left);
 	int pivotIndex = left;
-	// ¸Å°³º¯¼ö·Î ¹Þ¾Æ¿Â ½ÃÀÛ, ³¡Á¡À» º¯¼ö·Î ÀúÀå
+	// ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ì•„ì˜¨ ì‹œìž‘, ëì ì„ ë³€ìˆ˜ë¡œ ì €ìž¥
 	int leftStart = left;
 	int rightStart = right;
 
-	// ¹è¿­ ÁÂ¿ì Æ÷ÀÎÅÍ Á¤ÀÇ
+	// ë°°ì—´ ì¢Œìš° í¬ì¸í„° ì •ì˜
 	int l = left + 1;
 	int r = right;
 
-	// left ¿Í right °¡ ¾ù°¥¸± ¶§±îÁö ¹Ýº¹
-	// "¾ù°¥¸± ¶§±îÁö ¹Ýº¹ ÀÌÀ¯" : ¾ù°¥¸®±â Àü±îÁö »õ·Î¿î ÇÇ¹þ ±âÁØÀ¸·Î ÀÛÀº °ª ¹­À½°ú Å« °ª ¹­À½À» "ºÐÇÒ"&"Á¤·Ä" ÇÒ ¼ö ¾ø´Ù.
+	// left ì™€ right ê°€ ì—‡ê°ˆë¦´ ë•Œê¹Œì§€ ë°˜ë³µ
+	// "ì—‡ê°ˆë¦´ ë•Œê¹Œì§€ ë°˜ë³µ ì´ìœ " : ì—‡ê°ˆë¦¬ê¸° ì „ê¹Œì§€ ìƒˆë¡œìš´ í”¼ë²— ê¸°ì¤€ìœ¼ë¡œ ìž‘ì€ ê°’ ë¬¶ìŒê³¼ í° ê°’ ë¬¶ìŒì„ "ë¶„í• "&"ì •ë ¬" í•  ìˆ˜ ì—†ë‹¤.
 	while (l <= r) {
-		// l ÁÂ Æ÷ÀÎÅÍ°¡ µ¥ÀÌÅÍ ¹­À½ ³¡Á¡º¸´Ù ÀÛ°Å³ª °°°í, ÁÂ Æ÷ÀÎÅÍ ¹è¿­ °ªÀÌ ÇÇ¹þº¸´Ù ÀÛ°Å³ª °°À» µ¿¾È ¿ìÃøÀ¸·Î ÀÌµ¿
+		// l ì¢Œ í¬ì¸í„°ê°€ ë°ì´í„° ë¬¶ìŒ ëì ë³´ë‹¤ ìž‘ê±°ë‚˜ ê°™ê³ , ì¢Œ í¬ì¸í„° ë°°ì—´ ê°’ì´ í”¼ë²—ë³´ë‹¤ ìž‘ê±°ë‚˜ ê°™ì„ ë™ì•ˆ ìš°ì¸¡ìœ¼ë¡œ ì´ë™
 		while (l <= right && *(arr + l) <= pivot) {
 			l++;
 		}
-		// r ¿ì Æ÷ÀÎÅÍ°¡ µ¥ÀÌÅÍ ¹­À½ ³¡Á¡º¸´Ù Å©°Å³ª °°°í, ¿ì Æ÷ÀÎÅÍ ¹è¿­ °ªÀÌ ÇÇ¹þº¸´Ù Å©°Å³ª °°À» µ¿¾È ÁÂÃøÀ¸·Î ÀÌµ¿
+		// r ìš° í¬ì¸í„°ê°€ ë°ì´í„° ë¬¶ìŒ ëì ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , ìš° í¬ì¸í„° ë°°ì—´ ê°’ì´ í”¼ë²—ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ì„ ë™ì•ˆ ì¢Œì¸¡ìœ¼ë¡œ ì´ë™
 		while (r >= left + 1 && *(arr + r) >= pivot) {
 			r--;
 		}
-		// "ÁÂ Æ÷ÀÎÅÍ°¡ Ã£Àº ÇÇ¹þº¸´Ù Å« °ª" °ú "¿ì Æ÷ÀÎÅÍ°¡ Ã£Àº ÇÇ¹þº¸´Ù ÀÛÀº °ª" swap ÈÄ ´Ù½Ã ¾ù°¥¸± ¶§±îÁö ¹Ýº¹
+		// "ì¢Œ í¬ì¸í„°ê°€ ì°¾ì€ í”¼ë²—ë³´ë‹¤ í° ê°’" ê³¼ "ìš° í¬ì¸í„°ê°€ ì°¾ì€ í”¼ë²—ë³´ë‹¤ ìž‘ì€ ê°’" swap í›„ ë‹¤ì‹œ ì—‡ê°ˆë¦´ ë•Œê¹Œì§€ ë°˜ë³µ
 		if (l < r) {
 			swap(arr, l, r);
 			l++;
@@ -36,23 +36,23 @@ void quickSort(int* arr, int left, int right) {
 		}
 	}
 
-	// ¾ù°¥·ÈÀ» ¶§ "ÇÇ¹þÀ» ±âÁØ"À¸·Î ÇÇ¹þº¸´Ù "ÀÛÀº °ªÀº ¹«Á¶°Ç ¿ì -> ÁÂ·Î ÀÌµ¿ÇÑ ¿ì Æ÷ÀÎÅÍ"
-	swap(arr, pivotIndex, r); // ÇÇ¹þÀ» swap ½Ã [ºÐÇÒ] ÀÛ¾÷ÀÌ ¿Ï·á
-	// µð¹ö±ë Å×½ºÆÃ
+	// ì—‡ê°ˆë ¸ì„ ë•Œ "í”¼ë²—ì„ ê¸°ì¤€"ìœ¼ë¡œ í”¼ë²—ë³´ë‹¤ "ìž‘ì€ ê°’ì€ ë¬´ì¡°ê±´ ìš° -> ì¢Œë¡œ ì´ë™í•œ ìš° í¬ì¸í„°"
+	swap(arr, pivotIndex, r); // í”¼ë²—ì„ swap ì‹œ [ë¶„í• ] ìž‘ì—…ì´ ì™„ë£Œ
+	// ë””ë²„ê¹… í…ŒìŠ¤íŒ…
 	for (int i = leftStart; i <= rightStart; i++) {
 		printf("%d ", *(arr + i));
 	}
 	printf("\n");
 
-	// ºÐÇÒ ÈÄ Á¤·ÄÇÒ ¿ÞÂÊ µ¥ÀÌÅÍ ¹­À½
-	// "¿ì -> ÁÂ ·Î ÀÌµ¿ÇÑ ¿ì Æ÷ÀÎÅÍ" == "¹æ±Ý swap °úÁ¤À¸·Î pivotIndex" ¿Í °°À¸¹Ç·Î 
-	// µ¥ÀÌÅÍ ¹­À½ ½ÃÀÛÁ¡ÀÌ "»õ·Î¿î ¿ì Æ÷ÀÎÅÍ" º¸´Ù ÀÛÀ¸¸é, quickSort(arr, "»õ ÁÂ Æ÷ÀÎÅÍ", "»õ ¿ì Æ÷ÀÎÅÍ") ·Î Àç±Í ÇÔ¼ö È£Ãâ
+	// ë¶„í•  í›„ ì •ë ¬í•  ì™¼ìª½ ë°ì´í„° ë¬¶ìŒ
+	// "ìš° -> ì¢Œ ë¡œ ì´ë™í•œ ìš° í¬ì¸í„°" == "ë°©ê¸ˆ swap ê³¼ì •ìœ¼ë¡œ pivotIndex" ì™€ ê°™ìœ¼ë¯€ë¡œ 
+	// ë°ì´í„° ë¬¶ìŒ ì‹œìž‘ì ì´ "ìƒˆë¡œìš´ ìš° í¬ì¸í„°" ë³´ë‹¤ ìž‘ìœ¼ë©´, quickSort(arr, "ìƒˆ ì¢Œ í¬ì¸í„°", "ìƒˆ ìš° í¬ì¸í„°") ë¡œ ìž¬ê·€ í•¨ìˆ˜ í˜¸ì¶œ
 	if (leftStart < r - 1) {
 		quickSort(arr, leftStart, r - 1);
 	}
-	// ºÐÇÒ ÈÄ Á¤·ÄÇÒ ¿À¸¥ÂÊ µ¥ÀÌÅÍ ¹­À½
-	// "¿ì -> ÁÂ ·Î ÀÌµ¿ÇÑ ¿ì Æ÷ÀÎÅÍ" == "¹æ±Ý swap °úÁ¤À¸·Î pivotIndex" ¿Í °°À¸¹Ç·Î 
-	// "»õ·Î¿î ¿ì Æ÷ÀÎÅÍ" °¡ µ¥ÀÌÅÍ ¹­À½ ³¡Á¡º¸´Ù ÀÛÀ¸¸é, quickSort(arr, "»õ ÁÂ Æ÷ÀÎÅÍ", "»õ ¿ì Æ÷ÀÎÅÍ") ·Î Àç±Í ÇÔ¼ö È£Ãâ
+	// ë¶„í•  í›„ ì •ë ¬í•  ì˜¤ë¥¸ìª½ ë°ì´í„° ë¬¶ìŒ
+	// "ìš° -> ì¢Œ ë¡œ ì´ë™í•œ ìš° í¬ì¸í„°" == "ë°©ê¸ˆ swap ê³¼ì •ìœ¼ë¡œ pivotIndex" ì™€ ê°™ìœ¼ë¯€ë¡œ 
+	// "ìƒˆë¡œìš´ ìš° í¬ì¸í„°" ê°€ ë°ì´í„° ë¬¶ìŒ ëì ë³´ë‹¤ ìž‘ìœ¼ë©´, quickSort(arr, "ìƒˆ ì¢Œ í¬ì¸í„°", "ìƒˆ ìš° í¬ì¸í„°") ë¡œ ìž¬ê·€ í•¨ìˆ˜ í˜¸ì¶œ
 	if (r + 1 < rightStart) {
 		quickSort(arr, r + 1, rightStart);
 	}
@@ -60,11 +60,11 @@ void quickSort(int* arr, int left, int right) {
 
 int main() {
 	int N;
-	printf("¹è¿­ µ¥ÀÌÅÍ °³¼ö: ");
+	printf("ë°°ì—´ ë°ì´í„° ê°œìˆ˜: ");
 	scanf_s("%d", &N);
 	int* arr = (int*)malloc(sizeof(int) * N);
-	
-	printf("¹è¿­ ¿ä¼Ò ÀÔ·Â: ");
+
+	printf("ë°°ì—´ ìš”ì†Œ ìž…ë ¥: ");
 	for (int i = 0;i < N;i++) {
 		scanf_s("%d", arr + i);
 	}

@@ -6,7 +6,7 @@ void swap(int* arr, int x, int y) {
 	*(arr + y) = temp;
 }
 void heapSort(int* arr, int r, int n) {
-	// 재귀 종료 조건 :" heap 배열에 root 만 남았을 때 정렬 완료
+	// 재귀 종료 조건 : heap 배열에 root 만 남았을 때 정렬 완료
 	if (n == 1) {
 		return;
 	}
